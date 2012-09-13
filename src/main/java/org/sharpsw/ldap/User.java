@@ -40,6 +40,7 @@ package org.sharpsw.ldap;
  */
 public class User extends BaseLDAPElement implements Comparable<User> {
 	private String displayName;
+	private String sn = "";
 	
 	/**
 	 * Class constructor that initializes the instance with the user id,
