@@ -13,6 +13,7 @@ public abstract class BaseService {
 	protected static final String DISPLAY_NAME = "displayName";
 	protected static final String DN = "DN";
 	protected static final String CN = "cn";
+	protected static final String SN = "sn";
 	protected static final String OBJECT_CLASS = "objectClass";
 	protected static final String UNIQUE_MEMBER = "uniqueMember";
 	protected static final String USER_SEARCH_FILTER = "objectClass=person";
@@ -21,6 +22,8 @@ public abstract class BaseService {
 	private LDAPConnection connection;
 	private LDAPResource resource;
 	private String userIdentificationAttribute = UID;
+	private String userObjectClass = "person";
+	private String groupObjectClass = "groupOfUniqueNames";
 	
 	@SuppressWarnings("unused")
 	private BaseService() {
@@ -53,6 +56,22 @@ public abstract class BaseService {
 		return this.userIdentificationAttribute;
 	}
 	
+	public void setUserObjectClass(String value) {
+		this.userObjectClass = value;
+	}
+	
+	public String getUserObjectClass() {
+		return this.userObjectClass;
+	}
+	
+	public void setGroupObjectClass(String value) {
+		this.groupObjectClass = value;
+	}
+	
+	public String getGroupObjectClass() {
+		return this.groupObjectClass;
+	}
+	
 	/**
 	 * Returns the ldap connection object.
 	 * @return Instance of the class <code>LDAPConnection</code>.
@@ -67,5 +86,17 @@ public abstract class BaseService {
 	 */
 	protected LDAPResource getLDAPResource() {
 		return this.resource;
+	}
+	
+	protected String getUserSearchFilter() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(OBJECT_CLASS).append("=").append(this.getUserSearchFilter());
+		return buffer.toString();
+	}
+	
+	protected String getGroupSearchFilter() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(OBJECT_CLASS).append("=").append(this.getGroupObjectClass());
+		return buffer.toString();
 	}
 }

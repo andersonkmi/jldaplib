@@ -60,6 +60,7 @@ public final class RetrievalServiceImpl extends BaseService implements ILDAPRetr
 		String displayName = null;
 		String dn = null;
 		String cn = null;
+		String sn = "";
 		List<String> objectClassAttributes = new ArrayList<String>();
 
 		try {
@@ -69,9 +70,10 @@ public final class RetrievalServiceImpl extends BaseService implements ILDAPRetr
 			attributes.add(DISPLAY_NAME);
 			attributes.add(DN);
 			attributes.add(CN);
+			attributes.add(SN);
 			attributes.add(OBJECT_CLASS);
 			StringBuffer filter = new StringBuffer();
-			filter.append("(&(").append(this.getUserIdentificationAttribute()).append("=").append(uid).append(")(").append(USER_SEARCH_FILTER).append("))");
+			filter.append("(&(").append(this.getUserIdentificationAttribute()).append("=").append(uid).append(")(").append(this.getUserSearchFilter()).append("))");
 			results = this.getLDAPConnection().lookup(baseDN, filter.toString(),	attributes);
 
 			if (!results.hasMore()) {
@@ -114,6 +116,11 @@ public final class RetrievalServiceImpl extends BaseService implements ILDAPRetr
 					NamingEnumeration<?> values = item.getAll();
 					while(values.hasMore()) {
 						cn = values.next().toString();
+					}
+				} else if(attrId.equals(SN)) {
+					NamingEnumeration<?> values = item.getAll();
+					while(values.hasMore()) {
+						sn = values.next().toString();
 					}
 				}
 			}
