@@ -1,30 +1,3 @@
-/******************************************************************************
-    JLdapLib - Simple LDAP library for Java.
-    Copyright (C) 2010  Anderson Ito (andersonkmi@acm.org)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-******************************************************************************/
-
-//***************************************************************************
-//*** Modification history
-//***
-//*** Date			Author			Description
-//*** ====			======			===========
-//*** Jan/07/2010	andersonkmi		Code documentation included and logging.
-//*** Apr/27/2010	andersonkmi		Removed logging code.
-//****************************************************************************
-
 package org.sharpsw.ldap;
 
 import java.util.ArrayList;
@@ -46,16 +19,17 @@ public class Group extends BaseLDAPElement implements Comparable<Group> {
 			
 	public Group(final String name, final String dn) {
 		super(dn, name);
-		this.memberUids = new ArrayList<String>();		
-		this.members = new ArrayList<User>();
+		this.memberUids = new ArrayList<>();
+		this.members = new ArrayList<>();
 	}
 	
 	public Group(final String name, final String dn, final String gid) {
 		super(dn, name);
-		this.memberUids = new ArrayList<String>();
+		this.memberUids = new ArrayList<>();
 		this.groupId = gid;
 	}
-		
+
+
 	public final List<User> getUserMembers() {
 		return this.members;
 	}
@@ -74,6 +48,7 @@ public class Group extends BaseLDAPElement implements Comparable<Group> {
 	 * @see org.sharpsw.ldap.User
 	 */
 	public final void add(final User member) {
+		validate(member);
 		this.memberUids.add(member.getDn());
 		this.members.add(member);
 	}
@@ -92,14 +67,7 @@ public class Group extends BaseLDAPElement implements Comparable<Group> {
 	 * @return List<String> instance containing the user ids of all group members.
 	 */
 	public final List<String> getMembers() {
-		List<String> users = new ArrayList<String>();
-		Iterator<String> iterator = this.memberUids.iterator();
-		
-		while (iterator.hasNext()) {
-			users.add(iterator.next());
-		}
-		
-		return users;
+		return new ArrayList<>(this.memberUids);
 	}
 	
 	/**
@@ -115,16 +83,11 @@ public class Group extends BaseLDAPElement implements Comparable<Group> {
 	 * @return String containing some of the information.
 	 */
 	public final String toString() {
-		StringBuffer info = new StringBuffer();
+		StringBuilder info = new StringBuilder();
 		info.append("Group [name = ").append(this.getId()).append("; members = ");
-		Iterator<String> iter = this.memberUids.iterator();
-		while (iter.hasNext()) {
-			info.append(iter.next());
-			
-			// Verifies if there is a next element
-			if (iter.hasNext()) {
-				info.append(",");
-			}
+		for (String value : this.memberUids) {
+			info.append(value);
+			info.append(",");
 		}
 		info.append("]");
 		return info.toString();

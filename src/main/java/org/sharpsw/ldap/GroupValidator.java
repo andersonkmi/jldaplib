@@ -10,4 +10,10 @@ public class GroupValidator {
             throw new InvalidParameterException("Empty name provided");
         }
     }
+
+    public static void validate(final User user) {
+        if(user == null) {
+            throw new InvalidParameterException("Null user");
+        }
+    }
 }
