@@ -26,6 +26,7 @@
 package org.sharpsw.ldap;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -47,7 +48,7 @@ public abstract class BaseLDAPElement {
 	 */
 	public BaseLDAPElement(final String distinguishedName) {
 		this.dn = distinguishedName;
-		this.objectClassAttributeValues = new HashSet<String>();
+		this.objectClassAttributeValues = new HashSet<>();
 	}	
 	
 	/**
@@ -131,12 +132,8 @@ public abstract class BaseLDAPElement {
 	 * Returns a list containing the object class attributes.
 	 * @return List containing strings of the object class attributes.
 	 */
-	public final List<String> getObjectClassAttrbutes() {
-		List<String> elements = new ArrayList<String>();
-		for(String item : this.objectClassAttributeValues) {
-			elements.add(item);
-		}
-		return elements;
+	public final List<String> getObjectClassAttributes() {
+		return new ArrayList<>(this.objectClassAttributeValues);
 	}
 	
 	public abstract String toString();
