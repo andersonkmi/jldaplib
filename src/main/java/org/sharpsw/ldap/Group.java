@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static org.sharpsw.ldap.GroupValidator.validate;
+
 /**
  * Group - this class represents an existing group in the LDAP server.
  * 
@@ -81,6 +83,7 @@ public class Group extends BaseLDAPElement implements Comparable<Group> {
 	 * @param uid String representing the user id information.
 	 */
 	public final void add(final String uid) {
+		validate(uid);
 		this.memberUids.add(uid);
 	}
 	
@@ -151,7 +154,7 @@ public class Group extends BaseLDAPElement implements Comparable<Group> {
 	
 	/**
 	 * Performs the comparison between <code>Group</code> instances.
-	 * @param Group to compare against.
+	 * @param group to compare against.
 	 * @return Integer indicating if the instances are equal or lexiographically higher or lower.
 	 */
 	public int compareTo(Group group) {
