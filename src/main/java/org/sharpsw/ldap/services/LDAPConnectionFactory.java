@@ -1,32 +1,3 @@
-/******************************************************************************
-    JLdapLib - Simple LDAP library for Java.
-    Copyright (C) 2010  Anderson Ito (andersonkmi@acm.org)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-******************************************************************************/
-
-//*******************************************************************************
-//*** Modification history
-//***
-//*** Date			Author			Description
-//*** ====			======			===========
-//*** Jan/07/2010	andersonkmi		Initial version.
-//*** Jan/24/2010	andersonkmi		Inserted logging code.
-//*** Jan/31/2010	andersonkmi		Inserted more controls for LDAP connection.
-//*** Fev/17/2010	andersonkmi		Converting the logging part using AspectJ.
-//********************************************************************************
-
 package org.sharpsw.ldap.services;
 
 import java.io.IOException;
@@ -106,7 +77,7 @@ public class LDAPConnectionFactory {
 			
 			// Grabs the connection properties
 			String scope = resource.getSearchScope();
-			SearchScope searchScope = SearchScope.SUBTREE;
+			SearchScope searchScope;
 			
 			if (scope.equals("subtree")) {
 				searchScope = SearchScope.SUBTREE;
@@ -114,7 +85,10 @@ public class LDAPConnectionFactory {
 				searchScope = SearchScope.OBJECT;
 			} else if (scope.equals("onelevel")) {
 				searchScope = SearchScope.ONE_LEVEL;
+			} else {
+				searchScope = SearchScope.NONE;
 			}
+
 			int searchTimeout = Integer.parseInt(resource.getSearchTimeout());
 			String secAuth = resource.getSecurityAuthentication();
 			
