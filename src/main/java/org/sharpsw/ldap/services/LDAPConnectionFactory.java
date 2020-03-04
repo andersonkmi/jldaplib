@@ -25,6 +25,7 @@ import org.sharpsw.ldap.exception.InvalidSecurityAuthenticationException;
 import org.sharpsw.ldap.exception.InvalidServerException;
 import org.sharpsw.ldap.exception.InvalidServerVendorException;
 import org.sharpsw.ldap.exception.InvalidUserBaseDNException;
+import org.sharpsw.ldap.validation.LDAPPolicyVerifier;
 
 /**
  * LDAPConnectionFactory.java
@@ -35,8 +36,10 @@ public class LDAPConnectionFactory {
 
 	private static final String SSL_CONNECTION = "ssl";
 	private static final String TLS_CONNECTION = "tls";
+	private LDAPPolicyVerifier policyVerifier;
 	
 	public LDAPConnectionFactory() {
+		// implement here
 	}
 		
 	public final LDAPConnection getConnection(final LDAPResource resource) throws LDAPException, 

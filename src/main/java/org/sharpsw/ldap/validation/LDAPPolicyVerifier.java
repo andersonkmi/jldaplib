@@ -1,4 +1,4 @@
-package org.sharpsw.ldap.services;
+package org.sharpsw.ldap.validation;
 
 import org.sharpsw.ldap.exception.LDAPException;
 
