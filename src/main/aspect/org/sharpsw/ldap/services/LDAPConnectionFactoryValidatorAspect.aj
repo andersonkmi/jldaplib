@@ -37,9 +37,9 @@ public aspect LDAPConnectionFactoryValidatorAspect {
 			message.append("Null LDAP resource detected when requesting a new connection.");
 			throw new InvalidResourceException(message.toString());
 		}
-		checkBindUser(resource.getBindUser());
-		checkServer(resource.getServer());
-		checkPort(resource.getPort());
+		//checkBindUser(resource.getBindUser());
+		//checkServer(resource.getServer());
+		//checkPort(resource.getPort());
 		checkEncryptionMethod(resource.getEncryption());		
 		checkPassword(resource.getPassword());
 		checkInitialContextFactory(resource.getInitialContextFactory());
