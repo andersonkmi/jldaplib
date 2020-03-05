@@ -1,17 +1,5 @@
 package org.sharpsw.ldap.services;
 
-import java.io.IOException;
-import java.util.Hashtable;
-
-import javax.naming.Context;
-import javax.naming.NamingException;
-import javax.naming.ldap.InitialLdapContext;
-import javax.naming.ldap.LdapContext;
-import javax.naming.ldap.StartTlsRequest;
-import javax.naming.ldap.StartTlsResponse;
-import javax.net.ssl.SSLSocketFactory;
-
-import org.sharpsw.ldap.exception.LDAPException;
 import org.sharpsw.ldap.exception.InvalidBindPasswordException;
 import org.sharpsw.ldap.exception.InvalidBindUserException;
 import org.sharpsw.ldap.exception.InvalidEncryptionMethodException;
@@ -25,7 +13,18 @@ import org.sharpsw.ldap.exception.InvalidSecurityAuthenticationException;
 import org.sharpsw.ldap.exception.InvalidServerException;
 import org.sharpsw.ldap.exception.InvalidServerVendorException;
 import org.sharpsw.ldap.exception.InvalidUserBaseDNException;
+import org.sharpsw.ldap.exception.LDAPException;
 import org.sharpsw.ldap.validation.LDAPPolicyVerifier;
+
+import javax.naming.Context;
+import javax.naming.NamingException;
+import javax.naming.ldap.InitialLdapContext;
+import javax.naming.ldap.LdapContext;
+import javax.naming.ldap.StartTlsRequest;
+import javax.naming.ldap.StartTlsResponse;
+import javax.net.ssl.SSLSocketFactory;
+import java.io.IOException;
+import java.util.Hashtable;
 
 /**
  * LDAPConnectionFactory.java
@@ -38,8 +37,8 @@ public class LDAPConnectionFactory {
 	private static final String TLS_CONNECTION = "tls";
 	private LDAPPolicyVerifier policyVerifier;
 	
-	public LDAPConnectionFactory() {
-		// implement here
+	public LDAPConnectionFactory(LDAPPolicyVerifier policyVerifier) {
+		this.policyVerifier = policyVerifier;
 	}
 		
 	public final LDAPConnection getConnection(final LDAPResource resource) throws LDAPException, 
@@ -55,7 +54,9 @@ public class LDAPConnectionFactory {
 	                                                                  InvalidServerException,
 	                                                                  InvalidServerVendorException,
 	                                                                  InvalidEncryptionMethodException,
-	                                                                  InvalidUserBaseDNException {		
+	                                                                  InvalidUserBaseDNException {
+		this.policyVerifier.verify(resource);
+
 		LDAPConnection connection = null;
 		try {			
 			Hashtable<String, String> env = new Hashtable<String, String>();
