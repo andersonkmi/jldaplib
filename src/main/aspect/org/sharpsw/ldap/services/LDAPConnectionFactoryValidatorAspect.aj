@@ -40,8 +40,8 @@ public aspect LDAPConnectionFactoryValidatorAspect {
 		//checkBindUser(resource.getBindUser());
 		//checkServer(resource.getServer());
 		//checkPort(resource.getPort());
-		checkEncryptionMethod(resource.getEncryption());		
-		checkPassword(resource.getPassword());
+		//checkEncryptionMethod(resource.getEncryption());
+		//checkPassword(resource.getPassword());
 		checkInitialContextFactory(resource.getInitialContextFactory());
 		checkSearchScope(resource.getSearchScope());
 		checkSearchTimeout(resource.getSearchTimeout());
