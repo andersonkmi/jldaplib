@@ -37,12 +37,6 @@ public aspect LDAPConnectionFactoryValidatorAspect {
 			message.append("Null LDAP resource detected when requesting a new connection.");
 			throw new InvalidResourceException(message.toString());
 		}
-		//checkBindUser(resource.getBindUser());
-		//checkServer(resource.getServer());
-		//checkPort(resource.getPort());
-		//checkEncryptionMethod(resource.getEncryption());
-		//checkPassword(resource.getPassword());
-		checkInitialContextFactory(resource.getInitialContextFactory());
 		checkSearchScope(resource.getSearchScope());
 		checkSearchTimeout(resource.getSearchTimeout());
 		checkSecurityAuthentication(resource.getSecurityAuthentication());
@@ -51,70 +45,8 @@ public aspect LDAPConnectionFactoryValidatorAspect {
 		checkGroupBaseDN(resource.getGroupBaseDN());
 		return proceed(resource);
 	}
-	
-	void checkBindUser(String user) throws InvalidBindUserException {
-		if(user == null) {
-			throw new InvalidBindUserException("Null bind user supplied.");
-		} else if(user.isEmpty()) {
-			throw new InvalidBindUserException("Bind user name empty.");
-		}
-	}
-	
-	void checkServer(String server) throws InvalidServerException {
-		if(server == null) {
-			throw new InvalidServerException("Null server name supplied");
-		} else if(server.isEmpty()) {
-			throw new InvalidServerException("Server name empty");
-		}
-	}
-	
-	void checkPort(String port) throws InvalidPortException {
-		if(port == null) {
-			throw new InvalidPortException("Null port supplied.");
-		} else if(port.isEmpty()) {
-			throw new InvalidPortException("Empty port number supplied.");
-		} else {
-			try {
-				int portNumber = Integer.parseInt(port);
-				if(portNumber < 1) {
-					StringBuffer message = new StringBuffer();
-					message.append("Port number is invalid: ").append(portNumber);
-					throw new InvalidPortException(message.toString());
-				}
-			} catch (NumberFormatException exception) {
-				throw new InvalidPortException("Invalid number supplied", exception);
-			}
-		}
-	}
-	
-	void checkEncryptionMethod(String flag) throws InvalidEncryptionMethodException {
-		if(flag == null) {
-			throw new InvalidEncryptionMethodException("Encryption information is null");
-		} else if(flag.isEmpty()) {
-			throw new InvalidEncryptionMethodException("Encryption information is empty");
-		} else if(!flag.equals("none") && !flag.equals("ssl") && !flag.equals("tls")) {
-			StringBuffer message = new StringBuffer();
-			message.append("Encryption is invalid: ").append(flag);
-			throw new InvalidEncryptionMethodException(message.toString());
-		}
-	}
-	
-	void checkPassword(String password) throws InvalidBindPasswordException {
-		if(password == null) {
-			throw new InvalidBindPasswordException("Null password supplied");
-		} else if(password.isEmpty()) {
-			throw new InvalidBindPasswordException("Password is empty");
-		}
-	}
-	
-	void checkInitialContextFactory(String context) throws InvalidInitialContextFactoryException {
-		if(context == null) {
-			throw new InvalidInitialContextFactoryException("Null initial context factory");
-		} else if(context.isEmpty()) {
-			throw new InvalidInitialContextFactoryException("Empty initial context factory");
-		}
-	}
-	
+
+
 	void checkSearchScope(String scope) throws InvalidSearchScopeException {
 		if(scope == null) {
 			throw new InvalidSearchScopeException("Null search scope");
