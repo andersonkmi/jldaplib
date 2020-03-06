@@ -57,7 +57,7 @@ public class LDAPConnectionFactory {
 	                                                                  InvalidUserBaseDNException {
 		this.policyVerifier.verify(resource);
 
-		LDAPConnection connection = null;
+		LDAPConnection connection;
 		try {			
 			Hashtable<String, String> env = new Hashtable<String, String>();
 			env.put(Context.INITIAL_CONTEXT_FACTORY, resource.getInitialContextFactory());
