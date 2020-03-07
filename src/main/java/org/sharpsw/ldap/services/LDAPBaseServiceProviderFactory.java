@@ -1,10 +1,12 @@
 package org.sharpsw.ldap.services;
 
+import java.util.Collections;
 import java.util.HashMap;
 
 import org.sharpsw.ldap.exception.LDAPServiceCreationException;
 import org.sharpsw.ldap.exception.MissingLDAPResourceException;
 import org.sharpsw.ldap.exception.ServiceFactoryInitException;
+import org.sharpsw.ldap.validation.LDAPPolicyValidator;
 
 /**
  * Esta classe serve como base para outras fábricas de serviços
@@ -26,7 +28,7 @@ public abstract class LDAPBaseServiceProviderFactory {
 		try {
 			this.resource = new LDAPResource();
 			this.resource.setProperties(resource);
-			this.factory = new LDAPConnectionFactory();
+			this.factory = new LDAPConnectionFactory(new LDAPPolicyValidator(Collections.emptySet()));
 		} catch (MissingLDAPResourceException exception) {
 			throw new ServiceFactoryInitException("Resource failure during service factory creation", exception);
 		}
@@ -39,7 +41,7 @@ public abstract class LDAPBaseServiceProviderFactory {
 	 */
 	public LDAPBaseServiceProviderFactory(LDAPResource resource) {
 		this.resource = resource;
-		this.factory = new LDAPConnectionFactory();
+		this.factory = new LDAPConnectionFactory(new LDAPPolicyValidator(Collections.emptySet()));
 	}
 	
 	/**
@@ -50,7 +52,7 @@ public abstract class LDAPBaseServiceProviderFactory {
 	public LDAPBaseServiceProviderFactory(final HashMap<String, String> properties)	throws ServiceFactoryInitException {
 		this.resource = new LDAPResource();
 		this.resource.setProperties(properties);
-		this.factory = new LDAPConnectionFactory();
+		this.factory = new LDAPConnectionFactory(new LDAPPolicyValidator(Collections.emptySet()));
 	}
 	
 	public abstract ILDAPBaseService buildService() throws LDAPServiceCreationException;
