@@ -37,30 +37,11 @@ public aspect LDAPConnectionFactoryValidatorAspect {
 			message.append("Null LDAP resource detected when requesting a new connection.");
 			throw new InvalidResourceException(message.toString());
 		}
-		checkServerVendor(resource.getServerVendor());
 		checkUserBaseDN(resource.getUserBaseDN());
 		checkGroupBaseDN(resource.getGroupBaseDN());
 		return proceed(resource);
 	}
 
-
-	void checkServerVendor(String vendor) throws InvalidServerVendorException {
-		if(vendor == null) {
-			throw new InvalidServerVendorException("Null vendor name supplied");
-		} else if(vendor.isEmpty()) {
-			throw new InvalidServerVendorException("Empty vendor name supplied");
-		}
-		
-		// check the value
-		if(!(vendor.equals(LDAPServiceProviderType.APACHEDS_SERVICE_PROVIDER.toString()) || 
-			 vendor.equals(LDAPServiceProviderType.MS_ACTIVE_DIRECTORY_2003_SERVICE_PROVIDER.toString()) || 
-		     vendor.equals(LDAPServiceProviderType.OPEN_LDAP_SERVICE_PROVIDER.toString()))) {
-			StringBuffer buffer = new StringBuffer();
-			buffer.append("Invalid vendor supplied '").append(vendor).append("'");
-			throw new InvalidServerVendorException(buffer.toString());
-		}
-	}
-	
 	void checkUserBaseDN(String dn) throws InvalidUserBaseDNException {
 		if(dn == null) {
 			throw new InvalidUserBaseDNException("Null user base dn supplied");
