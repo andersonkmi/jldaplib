@@ -37,7 +37,6 @@ public aspect LDAPConnectionFactoryValidatorAspect {
 			message.append("Null LDAP resource detected when requesting a new connection.");
 			throw new InvalidResourceException(message.toString());
 		}
-		checkSecurityAuthentication(resource.getSecurityAuthentication());
 		checkServerVendor(resource.getServerVendor());
 		checkUserBaseDN(resource.getUserBaseDN());
 		checkGroupBaseDN(resource.getGroupBaseDN());
@@ -45,19 +44,6 @@ public aspect LDAPConnectionFactoryValidatorAspect {
 	}
 
 
-	void checkSecurityAuthentication(String auth) throws InvalidSecurityAuthenticationException {
-		if(auth == null) {
-			throw new InvalidSecurityAuthenticationException("Null security authentication");
-		} else if(auth.isEmpty()) {
-			throw new InvalidSecurityAuthenticationException("Empty security authentication");
-		}
-		
-		// Checks the supplied value
-		if(!auth.equals("simple") && !auth.equals("none")) {
-			throw new InvalidSecurityAuthenticationException("The valid values are: simple or none");
-		}
-	}
-	
 	void checkServerVendor(String vendor) throws InvalidServerVendorException {
 		if(vendor == null) {
 			throw new InvalidServerVendorException("Null vendor name supplied");
