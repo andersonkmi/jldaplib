@@ -37,8 +37,6 @@ public aspect LDAPConnectionFactoryValidatorAspect {
 			message.append("Null LDAP resource detected when requesting a new connection.");
 			throw new InvalidResourceException(message.toString());
 		}
-		checkSearchScope(resource.getSearchScope());
-		checkSearchTimeout(resource.getSearchTimeout());
 		checkSecurityAuthentication(resource.getSecurityAuthentication());
 		checkServerVendor(resource.getServerVendor());
 		checkUserBaseDN(resource.getUserBaseDN());
@@ -47,28 +45,6 @@ public aspect LDAPConnectionFactoryValidatorAspect {
 	}
 
 
-	void checkSearchScope(String scope) throws InvalidSearchScopeException {
-		if(scope == null) {
-			throw new InvalidSearchScopeException("Null search scope");
-		} else if(scope.isEmpty()) {
-			throw new InvalidSearchScopeException("Empty scope.");
-		}
-		// Verifies the value
-		if(!(scope.equalsIgnoreCase("object") || scope.equalsIgnoreCase("subtree") || scope.equalsIgnoreCase("onelevel"))) {
-			StringBuffer buffer = new StringBuffer();
-			buffer.append("Invalid search scope value '").append(scope).append("'");
-			throw new InvalidSearchScopeException(buffer.toString());
-		}
-	}
-	
-	void checkSearchTimeout(String timeout) throws InvalidSearchTimeoutException {
-		if(timeout == null) {
-			throw new InvalidSearchTimeoutException("Null timeout");
-		} else if(timeout.isEmpty()) {
-			throw new InvalidSearchTimeoutException("Empty timeout information");
-		}
-	}
-	
 	void checkSecurityAuthentication(String auth) throws InvalidSecurityAuthenticationException {
 		if(auth == null) {
 			throw new InvalidSecurityAuthenticationException("Null security authentication");
