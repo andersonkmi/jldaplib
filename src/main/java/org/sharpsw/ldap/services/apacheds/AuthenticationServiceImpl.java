@@ -8,6 +8,9 @@ import org.sharpsw.ldap.services.LDAPConnection;
 import org.sharpsw.ldap.services.LDAPConnectionFactory;
 import org.sharpsw.ldap.services.LDAPResource;
 import org.sharpsw.ldap.services.exception.LDAPFindException;
+import org.sharpsw.ldap.validation.LDAPPolicyValidator;
+
+import java.util.Collections;
 
 /**
  * Implementation of the <code>ILDAPAuthenticationService</code> interface for the Apache Directory Server.
@@ -57,7 +60,6 @@ public final class AuthenticationServiceImpl extends BaseService implements ILDA
 	 * @param uid String containing the user identification.
 	 * @param password String containing the password.
 	 * @param baseDN Base DN to start the user search for authentication purposes.
-	 * @throws InvalidLoginOrPasswordException If an error occurs
 	 */
 	@Override
 	public void authenticate(String uid, String password, String baseDN) throws InvalidLoginOrPasswordLDAPException {
@@ -67,14 +69,12 @@ public final class AuthenticationServiceImpl extends BaseService implements ILDA
 			localResource.setProperty(LDAPResource.BIND_USER, user.getDn());
 			localResource.setProperty(LDAPResource.PASSWORD, password);
 
-			LDAPConnectionFactory factory = new LDAPConnectionFactory();
+			LDAPConnectionFactory factory = new LDAPConnectionFactory(new LDAPPolicyValidator(Collections.emptySet()));
 			LDAPConnection conn = factory.getConnection(localResource);
 			conn.unbind();
 		} catch (LDAPFindException exception) {
 			throw new InvalidLoginOrPasswordLDAPException(exception.getMessage());
-		} catch (LDAPException exception) {
-			throw new InvalidLoginOrPasswordLDAPException(exception.getMessage(), exception);
-		} catch (CloneNotSupportedException exception) {
+		} catch (LDAPException | CloneNotSupportedException exception) {
 			throw new InvalidLoginOrPasswordLDAPException(exception.getMessage(), exception);
 		}
 	}
@@ -83,7 +83,6 @@ public final class AuthenticationServiceImpl extends BaseService implements ILDA
 	 * Authenticates an user.
 	 * @param uid User id to authenticate.
 	 * @param password User's password.
-	 * @throws InvalidLoginOrPasswordException If the credentials are not correct.
 	 */
 	@Override
 	public void authenticate(String uid, String password) throws InvalidLoginOrPasswordLDAPException {
