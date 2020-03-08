@@ -42,9 +42,7 @@ public class AuthenticationServiceImpl extends BaseService implements ILDAPAuthe
 			conn.unbind();
 		} catch (LDAPFindException exception) {
 			throw new InvalidLoginOrPasswordLDAPException(exception.getMessage());
-		} catch (LDAPException exception) {
-			throw new InvalidLoginOrPasswordLDAPException(exception.getMessage(), exception);
-		} catch (CloneNotSupportedException exception) {
+		} catch (LDAPException | CloneNotSupportedException exception) {
 			throw new InvalidLoginOrPasswordLDAPException(exception.getMessage(), exception);
 		}
 	}
