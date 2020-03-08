@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 
 public class SearchScopeVerificationPolicy implements LDAPVerificationPolicy {
     @Override
-    public void verify(@Nonnull LDAPResource resource) throws LDAPException {
+    public void verify(@Nonnull LDAPResource resource) throws InvalidSearchScopeException {
         String scope = resource.getSearchScope();
         if (scope == null) {
             throw new InvalidSearchScopeException("Null search scope");

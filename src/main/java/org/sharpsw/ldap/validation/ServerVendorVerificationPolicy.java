@@ -12,7 +12,7 @@ import static org.sharpsw.ldap.services.LDAPServiceProviderType.OPEN_LDAP_SERVIC
 
 public class ServerVendorVerificationPolicy implements LDAPVerificationPolicy {
     @Override
-    public void verify(@Nonnull LDAPResource resource) throws LDAPException {
+    public void verify(@Nonnull LDAPResource resource) throws InvalidServerVendorException {
         String vendor = resource.getServerVendor();
 
         if (vendor == null) {

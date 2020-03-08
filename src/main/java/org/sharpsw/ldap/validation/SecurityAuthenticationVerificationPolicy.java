@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 public class SecurityAuthenticationVerificationPolicy implements LDAPVerificationPolicy {
     @Override
-    public void verify(@Nonnull LDAPResource resource) throws LDAPException {
+    public void verify(@Nonnull LDAPResource resource) throws InvalidSecurityAuthenticationException {
         String auth = resource.getSecurityAuthentication();
 
         if (auth == null) {

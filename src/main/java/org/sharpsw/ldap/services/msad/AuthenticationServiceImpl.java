@@ -8,6 +8,9 @@ import org.sharpsw.ldap.services.LDAPConnection;
 import org.sharpsw.ldap.services.LDAPConnectionFactory;
 import org.sharpsw.ldap.services.LDAPResource;
 import org.sharpsw.ldap.services.exception.LDAPFindException;
+import org.sharpsw.ldap.validation.LDAPPolicyValidator;
+
+import java.util.Collections;
 
 public class AuthenticationServiceImpl extends BaseService implements ILDAPAuthenticationService {
 	private RetrievalServiceImpl service;
@@ -34,7 +37,7 @@ public class AuthenticationServiceImpl extends BaseService implements ILDAPAuthe
 			localResource.setProperty(LDAPResource.BIND_USER, user.getDn());
 			localResource.setProperty(LDAPResource.PASSWORD, password);
 
-			LDAPConnectionFactory factory = new LDAPConnectionFactory();
+			LDAPConnectionFactory factory = new LDAPConnectionFactory(new LDAPPolicyValidator(Collections.emptySet()));
 			LDAPConnection conn = factory.getConnection(localResource);
 			conn.unbind();
 		} catch (LDAPFindException exception) {

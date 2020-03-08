@@ -41,20 +41,7 @@ public class LDAPConnectionFactory {
 		this.policyVerifier = policyVerifier;
 	}
 		
-	public final LDAPConnection getConnection(final LDAPResource resource) throws LDAPException, 
-	                                                                  InvalidBindPasswordException, 
-	                                                                  InvalidBindUserException,
-	                                                                  InvalidGroupBaseDNException, 
-	                                                                  InvalidInitialContextFactoryException, 
-	                                                                  InvalidPortException, 
-	                                                                  InvalidResourceException,
-	                                                                  InvalidSearchScopeException,
-	                                                                  InvalidSearchTimeoutException,
-	                                                                  InvalidSecurityAuthenticationException,
-	                                                                  InvalidServerException,
-	                                                                  InvalidServerVendorException,
-	                                                                  InvalidEncryptionMethodException,
-	                                                                  InvalidUserBaseDNException {
+	public final LDAPConnection getConnection(final LDAPResource resource) throws LDAPException {
 		this.policyVerifier.verify(resource);
 
 		LDAPConnection connection;

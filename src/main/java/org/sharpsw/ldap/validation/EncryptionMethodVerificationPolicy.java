@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 public class EncryptionMethodVerificationPolicy implements LDAPVerificationPolicy {
     @Override
-    public void verify(@Nonnull LDAPResource resource) throws LDAPException {
+    public void verify(@Nonnull LDAPResource resource) throws InvalidEncryptionMethodException {
         String flag = resource.getEncryption();
 
         if(flag == null) {

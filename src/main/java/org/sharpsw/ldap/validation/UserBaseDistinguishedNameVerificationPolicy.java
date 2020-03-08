@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 public class UserBaseDistinguishedNameVerificationPolicy implements LDAPVerificationPolicy {
     @Override
-    public void verify(@Nonnull LDAPResource resource) throws LDAPException {
+    public void verify(@Nonnull LDAPResource resource) throws InvalidUserBaseDNException {
         String dn = resource.getUserBaseDN();
 
         if (dn == null) {

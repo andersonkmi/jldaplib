@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 public class SearchTimeoutVerificationPolicy implements LDAPVerificationPolicy {
     @Override
-    public void verify(@Nonnull LDAPResource resource) throws LDAPException {
+    public void verify(@Nonnull LDAPResource resource) throws InvalidSearchTimeoutException {
         String timeout = resource.getSearchTimeout();
         if (timeout == null) {
             throw new InvalidSearchTimeoutException("Null timeout");

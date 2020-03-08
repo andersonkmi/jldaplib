@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 public class PortVerificationPolicy implements LDAPVerificationPolicy {
     @Override
-    public void verify(@Nonnull LDAPResource resource) throws LDAPException {
+    public void verify(@Nonnull LDAPResource resource) throws InvalidPortException {
         String port = resource.getPort();
 
         if(port == null) {

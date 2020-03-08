@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 public class InitialContextVerificationPolicy implements LDAPVerificationPolicy {
     @Override
-    public void verify(@Nonnull LDAPResource resource) throws LDAPException {
+    public void verify(@Nonnull LDAPResource resource) throws InvalidInitialContextFactoryException {
         String context = resource.getInitialContextFactory();
 
         if(context == null) {

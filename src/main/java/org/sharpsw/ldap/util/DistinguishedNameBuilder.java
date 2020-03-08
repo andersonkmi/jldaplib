@@ -20,9 +20,9 @@ public class DistinguishedNameBuilder {
 	}
 	
 	private Map<String, String> splitEntries(String dn) {
-		Map<String, String> entries = new LinkedHashMap<String, String>();
+		Map<String, String> entries = new LinkedHashMap<>();
 		
-		List<String> items = new LinkedList<String>();
+		List<String> items = new LinkedList<>();
 		StringTokenizer dnTokenizer = new StringTokenizer(dn, DN_ENTRY_ITEM_DELIMITER);
 		while(dnTokenizer.hasMoreTokens()) {
 			items.add(dnTokenizer.nextToken().trim());
@@ -41,7 +41,7 @@ public class DistinguishedNameBuilder {
 	}
 	
 	private void createNodes(DistinguishedName dn, Map<String, String> entries) {
-		Stack<DistinguishedNameNode> items = new Stack<DistinguishedNameNode>();
+		Stack<DistinguishedNameNode> items = new Stack<>();
 		
 		Set<Map.Entry<String, String>> elements = entries.entrySet();
 		for(Map.Entry<String, String> entry : elements) {

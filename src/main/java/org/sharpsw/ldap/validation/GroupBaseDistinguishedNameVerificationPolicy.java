@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 public class GroupBaseDistinguishedNameVerificationPolicy implements LDAPVerificationPolicy {
     @Override
-    public void verify(@Nonnull LDAPResource resource) throws LDAPException {
+    public void verify(@Nonnull LDAPResource resource) throws InvalidGroupBaseDNException {
         String dn = resource.getGroupBaseDN();
 
         if (dn == null) {

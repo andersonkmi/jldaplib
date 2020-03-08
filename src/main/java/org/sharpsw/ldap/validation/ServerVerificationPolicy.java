@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 public class ServerVerificationPolicy implements LDAPVerificationPolicy {
     @Override
-    public void verify(@Nonnull LDAPResource resource) throws LDAPException {
+    public void verify(@Nonnull LDAPResource resource) throws InvalidServerException {
         String server = resource.getServer();
         if(server == null) {
             throw new InvalidServerException("Null server name supplied");

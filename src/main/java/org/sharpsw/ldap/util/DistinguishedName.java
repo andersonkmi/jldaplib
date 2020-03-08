@@ -18,7 +18,7 @@ public class DistinguishedName {
 	}
 	
 	public String toString() {
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		buffer.append("DistinguishedName [");
 		for(DistinguishedNameNode node : this.elements) {
 			buffer.append("node = '").append(node.toString()).append("', ");			

@@ -1,20 +1,3 @@
-/******************************************************************************
-    JLdapLib - Simple LDAP library for Java.
-    Copyright (C) 2010  Anderson Ito (andersonkmi@acm.org)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
 package org.sharpsw.ldap.services;
 
 import java.io.BufferedReader;
@@ -54,7 +37,7 @@ public class LDAPResource implements Cloneable {
 	 * Class constructor.
 	 */
 	public LDAPResource() {
-		this.properties = new HashMap<String, String>();
+		this.properties = new HashMap<>();
 	}
 
 	/**
@@ -63,7 +46,7 @@ public class LDAPResource implements Cloneable {
 	 */
 	public final LDAPResource clone() throws CloneNotSupportedException {
 		super.clone();
-		HashMap<String, String> settings = new HashMap<String, String>();
+		HashMap<String, String> settings = new HashMap<>();
 		settings.put(CONTEXT_FACTORY, this.properties.get(CONTEXT_FACTORY));
 		settings.put(SERVER, this.properties.get(SERVER));
 		settings.put(BIND_USER, this.properties.get(BIND_USER));
@@ -91,7 +74,7 @@ public class LDAPResource implements Cloneable {
 		if (this.properties != null) {
 			this.properties.clear();
 		} else {
-			this.properties = new HashMap<String, String>();
+			this.properties = new HashMap<>();
 		}
 
 		Set<Entry<String, String>> entries = externalProperties.entrySet();
@@ -115,7 +98,7 @@ public class LDAPResource implements Cloneable {
 			if (this.properties != null) {
 				this.properties.clear();
 			} else {
-				this.properties = new HashMap<String, String>();
+				this.properties = new HashMap<>();
 			}
 
 			Properties props = new Properties();
@@ -136,14 +119,10 @@ public class LDAPResource implements Cloneable {
 			this.properties.put(LDAPResource.USER_BASE_DN, props.getProperty(LDAPResource.USER_BASE_DN));
 			this.properties.put(LDAPResource.GROUP_BASE_DN,	props.getProperty(LDAPResource.GROUP_BASE_DN));
 
-		} catch (FileNotFoundException fileNotFoundExc) {
+		} catch (IOException fileNotFoundExc) {
 			StringBuffer log = new StringBuffer("LDAP resource file ");
 			log.append(propertiesFile).append(" could not be found or it is not accessible");
 			throw new MissingLDAPResourceException(log.toString(), fileNotFoundExc);
-		} catch (IOException ioExc) {
-			StringBuffer log = new StringBuffer("LDAP resource file ");
-			log.append(propertiesFile).append(" could not be found or it is not accessible");
-			throw new MissingLDAPResourceException(log.toString(), ioExc);
 		} finally {
 			if (reader != null) {
 				try {

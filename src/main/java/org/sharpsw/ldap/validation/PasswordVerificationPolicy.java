@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 public class PasswordVerificationPolicy implements LDAPVerificationPolicy {
     @Override
-    public void verify(@Nonnull LDAPResource resource) throws LDAPException {
+    public void verify(@Nonnull LDAPResource resource) throws InvalidBindPasswordException {
         String password = resource.getPassword();
 
         if(password == null) {

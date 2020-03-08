@@ -69,15 +69,11 @@ public abstract class BaseService {
 	}
 	
 	protected String getUserSearchFilter() {
-		StringBuffer buffer = new StringBuffer();
-		buffer.append(OBJECT_CLASS).append("=").append(this.getUserObjectClass());
-		return buffer.toString();
+		return OBJECT_CLASS + "=" + this.getUserObjectClass();
 	}
 	
 	protected String getGroupSearchFilter() {
-		StringBuffer buffer = new StringBuffer();
-		buffer.append(OBJECT_CLASS).append("=").append(this.getGroupObjectClass());
-		return buffer.toString();
+		return OBJECT_CLASS + "=" + this.getGroupObjectClass();
 	}
 	
 	protected LDAPConnection getLDAPConnection() {
