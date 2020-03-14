@@ -14,12 +14,12 @@ public class OpenLdapConnectionTesting {
 		try {
 			//System.setProperty("javax.net.ssl.trustStore", "cacerts");
 	    	//System.setProperty("javax.net.ssl.trustStorePassword", "secret");
-			HashMap<String, String> connectionProperties = new HashMap<String, String>();
+			HashMap<String, String> connectionProperties = new HashMap<>();
 			connectionProperties.put(LDAPResource.SERVER, "centos");
 			connectionProperties.put(LDAPResource.PORT, "389");
 			connectionProperties.put(LDAPResource.CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
 			connectionProperties.put(LDAPResource.BIND_USER, "cn=administrator,dc=sharpsw,dc=org");
-			connectionProperties.put(LDAPResource.PASSWORD, "Skynet001");
+			connectionProperties.put(LDAPResource.PASSWORD, "password");
 			connectionProperties.put(LDAPResource.SEARCH_SCOPE, "subtree");
 			connectionProperties.put(LDAPResource.SEARCH_TIMEOUT, "120");
 			connectionProperties.put(LDAPResource.SECURITY_AUTH, "simple");
@@ -31,7 +31,7 @@ public class OpenLdapConnectionTesting {
 			
 			ILDAPRetrievalService service = factory.buildService();
 			
-			User user = service.getUser("andersonkmi");
+			User user = service.getUser("user001");
 			System.out.println(user.getDisplayName());
 		} catch (Exception exception) {
 			exception.printStackTrace();
